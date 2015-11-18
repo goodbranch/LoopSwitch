@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="loopswitch_text_size">18sp</dimen>
+  <dimen name="loopswitch_title_margin_left">15dp</dimen>
+  <dimen name="loopswitch_title_margin_bottom">15dp</dimen>
+  <dimen name="loopswitch_pageshow_height">10dp</dimen>
+</resources>

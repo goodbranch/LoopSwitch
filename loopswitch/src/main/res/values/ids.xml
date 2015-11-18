@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!--轮播图 -->
+  <item name="autoloopswitch_viewpager_id" type="id"></item>
+  <item name="autoloopswitch_lable_image_id" type="id"></item>
+  <item name="autoloopswitch_title_textview_id" type="id"></item>
+  <item name="autoloopswitch_pagershow_id" type="id"></item>
+
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="loopswitch_page_current">#ffffffff</color>
+  <color name="loopswitch_page_other">#80ffffff</color>
+  <color name="white">#FFFFFFFF</color>
+
+</resources>
