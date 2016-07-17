@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     datas.add(model);
     mAdapter = new AutoSwitchAdapter(getApplicationContext(), datas);
     mAutoSwitchView.setAdapter(mAdapter);
+
+    mAdapter.notifyDataSetChanged();
   }
 
 }

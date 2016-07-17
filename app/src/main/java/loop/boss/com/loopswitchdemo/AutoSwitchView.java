@@ -2,13 +2,14 @@ package loop.boss.com.loopswitchdemo;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
+import android.view.View;
 
+import loop.boss.com.loopswitch.AutoLoopSwitchBaseAdapter;
 import loop.boss.com.loopswitch.AutoLoopSwitchBaseView;
 
 /**
- * Created by aoaoboss on 2015/11/18.
+ * @author ryze
+ * @since 1.0  2016/07/17
  */
 public class AutoSwitchView extends AutoLoopSwitchBaseView {
 
@@ -33,47 +34,22 @@ public class AutoSwitchView extends AutoLoopSwitchBaseView {
   protected void onSwitch(int index, Object o) {
     LoopModel model = (LoopModel) o;
     if (model != null) {
-      titleSwitchAnimation(model.getTitle());
     }
   }
 
-  /**
-   * 标题
-   */
-  private void titleSwitchAnimation(String title) {
-
-    getTitleTv().clearAnimation();
-    getTitleTv().setText(title);
-
-    AlphaAnimation alpha = new AlphaAnimation(1.0f, 0f);
-    alpha.setDuration(250);
-    alpha.setAnimationListener(new Animation.AnimationListener() {
-
-      @Override
-      public void onAnimationStart(Animation arg0) {
-
-      }
-
-      @Override
-      public void onAnimationRepeat(Animation arg0) {
-
-      }
-
-      @Override
-      public void onAnimationEnd(Animation arg0) {
-
-      }
-    });
-
-    alpha.setRepeatCount(1);
-    alpha.setRepeatMode(Animation.REVERSE);
-    getTitleTv().startAnimation(alpha);
-
+  @Override
+  protected View getFailtView() {
+    return null;
   }
 
   @Override
   protected long getDurtion() {
-    return 5000;
+    return 3000;
   }
 
+  @Override
+  public void setAdapter(AutoLoopSwitchBaseAdapter adapter) {
+    super.setAdapter(adapter);
+    mHandler.sendEmptyMessage(LoopHandler.MSG_REGAIN);
+  }
 }

@@ -9,8 +9,8 @@ import android.view.View;
 /**
  * 页码显示类
  *
- * @author aoaoboss
- * @since 1.1.0 2015/11/18
+ * @author ryze
+ * @since 1.0  2016/07/17
  */
 public class PageShowView extends View {
 

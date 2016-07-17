@@ -1,7 +1,8 @@
 package loop.boss.com.loopswitchdemo;
 
 /**
- * Created by Ryze on 2015/11/18.
+ * @author ryze
+ * @since 1.0  2016/07/17
  */
 public class LoopModel {
 

@@ -1,25 +1,21 @@
 package loop.boss.com.loopswitch;
 
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
-import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 
 /**
  * 订阅页面轮播图适配器
  *
- * @author aoaoboss
- * @since 6.4.3  2015/11/16
+ * @author ryze
+ * @since 1.0  2016/07/17
  */
 public abstract class AutoLoopSwitchBaseAdapter extends PagerAdapter {
 
-
-  private SparseArray<View> mCachePagerViews;
-
   public AutoLoopSwitchBaseAdapter() {
-    this.mCachePagerViews = new SparseArray<View>();
   }
+
+  public static final int VIEWPAGER_RADIX = 100;
 
   /**
    * 实际轮播图个数
@@ -30,11 +26,21 @@ public abstract class AutoLoopSwitchBaseAdapter extends PagerAdapter {
 
   public abstract Object getItem(int position);
 
+  /**
+   * 如果数据为空的时候,这里最好不为空
+   */
+  public abstract View getEmptyView();
+
+  /**
+   * 当数据改变时，ViewPager预加载的View需要重新设置数据
+   */
+  public abstract void updateView(View view, int position);
+
   @Override
   public final int getCount() {
     if (getDataCount() > 1) {
-      //如果轮播个数大于1个，那么需要轮播，则会在首尾加上一个，
-      return getDataCount() + 2;
+      //如果轮播个数大于1个，那么需要轮播，增加基数，同时在首尾加上一个，
+      return getDataCount() * VIEWPAGER_RADIX + 2;
     } else {
       return getDataCount();
     }
@@ -57,20 +63,26 @@ public abstract class AutoLoopSwitchBaseAdapter extends PagerAdapter {
     return position;
   }
 
+  /**
+   *
+   * @param container
+   * @param position
+   * @return
+   */
   @Override
   public final Object instantiateItem(ViewGroup container, int position) {
-    View v = null;
-    int posi = getActualIndex(position);
-    v = mCachePagerViews.get(posi);
+
+    position = getActualIndex(position);
+
+    position %= getDataCount();
+
+    View v = getView(position);
+
     if (v == null) {
-      v = getView(posi);
-      mCachePagerViews.put(posi, v);
-    } else {
-      ViewGroup parent = (ViewGroup) v.getParent();
-      if (parent != null) {
-        parent.removeView(v);
-      }
+      v = getEmptyView();
     }
+
+    v.setTag(position);
 
     container.addView(v);
 
@@ -78,8 +90,9 @@ public abstract class AutoLoopSwitchBaseAdapter extends PagerAdapter {
   }
 
   @Override
-  public final void destroyItem(ViewGroup container, int position, Object object) {
+  public void destroyItem(ViewGroup container, int position, Object object) {
 //    super.destroyItem(container, position, object);
+    container.removeView((View) object);
   }
 
 
@@ -89,12 +102,5 @@ public abstract class AutoLoopSwitchBaseAdapter extends PagerAdapter {
   }
 
 
-  @Override
-  public void notifyDataSetChanged() {
-    super.notifyDataSetChanged();
-    if (mCachePagerViews != null) {
-      Log.e("ryze", "AutoLoopSwitchBaseAdapter notifyDataSetChanged");
-      mCachePagerViews.clear();
-    }
-  }
 }
+

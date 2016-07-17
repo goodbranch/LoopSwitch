@@ -11,13 +11,18 @@ import java.util.List;
 import loop.boss.com.loopswitch.AutoLoopSwitchBaseAdapter;
 
 /**
- * Created by Ryze on 2015/11/18.
+ * @author ryze
+ * @since 1.0  2016/07/17
  */
 public class AutoSwitchAdapter extends AutoLoopSwitchBaseAdapter {
 
   private Context mContext;
 
   private List<LoopModel> mDatas;
+
+  public AutoSwitchAdapter() {
+    super();
+  }
 
   public AutoSwitchAdapter(Context mContext, List<LoopModel> mDatas) {
     this.mContext = mContext;
@@ -47,5 +52,21 @@ public class AutoSwitchAdapter extends AutoLoopSwitchBaseAdapter {
       return mDatas.get(position);
     }
     return null;
+  }
+
+
+  @Override
+  public View getEmptyView() {
+    return null;
+  }
+
+  @Override
+  public void updateView(View view, int position) {
+
+  }
+
+  @Override
+  public void destroyItem(ViewGroup container, int position, Object object) {
+    super.destroyItem(container, position, object);
   }
 }
